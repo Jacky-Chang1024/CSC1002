@@ -105,4 +105,7 @@ red_bike.brake()
 '''
 
 #   $Guidelines on how to write good code$
-print('hellko')
+# print('hellko')
+
+nums = []
+nums.append(n1)
