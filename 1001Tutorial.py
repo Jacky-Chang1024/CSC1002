@@ -19,7 +19,7 @@ print(l)
  """
 
 
- # Q1
+ # Q1 Quadratic equation
 """
 a, b, c = map(float, input('Enter: ').split(',')) 
 
@@ -36,7 +36,7 @@ elif b**2 - 4*a*c == 0:
 else:
     print('no real roots.')  """   
 
-# Q2
+# Q2 Days in a month
 """
 m, y = map(int, input('Enter the month and year: ').split(','))
 l = [31,28,31,30,31,30,31,31,30,31,30,31]
@@ -55,7 +55,7 @@ else:
         d = l[m-1]
 print('%s %d has %d days'%(M,y,d))  """
 
-#Q3
+#Q3 Sum the digits
 """ 
 while (1):
 
@@ -73,7 +73,7 @@ while (1):
         break
  """
 
- #Q4
+ #Q4 Count numbers
 """ 
 
 #标答在这里用了
@@ -110,7 +110,7 @@ print('The sum of numbers is %d'%sum)
 print('The average of numbers is %.2f'%avg)
  """
 
- #Q5
+ #Q5 Find factors
 '''
 
 
@@ -157,7 +157,7 @@ else:
 
 '''
 
-#Q6
+#Q6 Display a pyramid
 '''
 n = int(input())
 
