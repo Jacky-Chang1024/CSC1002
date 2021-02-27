@@ -55,4 +55,15 @@ print(s)
 # of 7 or contains the digit 7. The first five direction changes are after . The first 30 elements
 # of the ping-pong sequence are listed below, with direction swaps marked using brackets at
 # the 7th, 14th, 17th, 21st, 27th, and 28th elements
+'''
+n = int(input("Please enter a positive integer: "))
+pingppng_list = [1] * n
 
+direction = 1
+for i in range(1, n):
+    if i % 7 == 0 or str(i).find('7') != -1:
+        direction = - direction
+    pingppng_list[i] = pingppng_list[i-1] + direction
+    
+print("The %sth element in ping-pong sequence is: %s" % (n, pingppng_list[-1]))
+'''
