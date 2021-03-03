@@ -1,3 +1,5 @@
+#TUT4
+
 # (Anagrams) Enter two different words and 
 # check whether they are anagrams. Two words
 # are anagrams if they contain the same letters.
@@ -67,3 +69,107 @@ for i in range(1, n):
     
 print("The %sth element in ping-pong sequence is: %s" % (n, pingppng_list[-1]))
 '''
+
+
+#TUT5
+
+#A little bit tricky example to help you understand loop control.
+#  What is the result? What if a = [0, 1, 2]?
+'''
+a = list(range(2))
+for i in a:
+    if i > 3:
+        print(i)
+        continue
+else: #if 没有被执行的话，执行else
+    print('There is no break in the if statement.')
+'''
+
+# Please remove all the "&nbsp" in this paragraph and capitalize each sentence. (Find the structure and
+# take care of the spaces). (Hint: \n is used to split lines)
+
+#diary = 
+'''
+at 10:30 am, Kinley sent me a pdf about String via &nbsp     kinley@cuhk.edu.cn.
+at 12:15 pm, &nbsp     Xiaoming treated me a superb lunch as &nbsp     promised!
+at 2:15 pm, Kinley asked me to give a &nbsp     quiz on my tutorial.
+at 4:00 pm, &nbsp     Xiaoming sent the quiz questions via xiaoming@cuhk.edu.cn.
+at 6:00 pm, a student told &nbsp     me he was &nbsp     desprate for a hard quiz!
+'''
+
+
+'''diary = diary.replace('&nbsp     ','')
+diary = diary.split('\n')
+out = ''
+for i in diary:
+    i = i.capitalize() + '\n'
+     #注意capitalize是应用到整个句子的，所以
+     #非内置默认大写的文字也会被变成小写
+    out += i
+print(out)'''
+ 
+# Exercise 1
+# As an example, suppose that the English word is scarm. Because the word begins with a consonant, you
+# divide it into two parts, one consisting of the letters before the first vowel (i.e., a, e, i, o, u, A, E, I, O, U) and
+# one consisting of that vowel and the remaining letters: scr am
+# You then interchange these two parts and add ay at the end, as follows: am scr ay
+# Thus the Pig Latin word for scram is amscray. For a word that begins with a vowel, such as apple, you simply
+# add way to the end, which leaves you with appleway.
+# If there is no vowel in this word, its Pig Latin is simply itself.
+
+''' 
+vowel = 'a e i o u A E I O U'
+vowel = vowel.split()
+##print(vowel)
+k = 0
+word = input()
+wordList = list(word)
+# for i in vowel:
+#        if not word.find(i):
+#        print(word)
+
+for i in wordList:
+    k += 1
+    if i in vowel:
+        break
+    
+L1 = wordList[0: k-1]
+L2 = wordList[k-1:]
+pigLatinList = L2 + L1 + list('ay')
+#check whether there in no vowel
+if pigLatinList == wordList + list('ay'): 
+    print(word)
+else:
+    print(''.join(pigLatinList)) '''
+
+# Prompt the user to input a series of different integers (more than 3) separated by single space and a target
+# integer . Find three of these integers whose sum is closest to the target integer. Then print the sum of the
+# three integers and those three integers. You may assume that each input would have exactly one solution.
+# (hint: list, for loop)
+
+''' 
+l1 = input().split()
+l = []
+
+for i in l1:
+    l.append(int(i))
+    
+tar = int(input())
+N = len(l)
+out = l[0]+l[1]+l[2] #初始值的设定
+
+#print(N)
+for i in range(N-2):
+    for j in range(i+1,N-1):
+        for k in range(j+1,N):
+            a = abs(l[i] + l[j] + l[k] - tar)
+            #
+            #print(i,j,k)
+            if -a > -out:
+                out = a
+            else:
+                continue
+print(l[i],l[j],l[k])
+
+ '''
+
