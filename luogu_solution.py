@@ -153,3 +153,85 @@
 #     print(s[m])
 
 
+#P1085
+
+'''
+# with open("test.txt", "r") as f:
+#     data = f.read()
+# print(data)
+# data = data.split('\n')
+
+x, y = [], []
+
+for i in range(1,8):
+    a, b = map(int, input().split())
+    #a, b = map(int, data[i-1].split())
+    x.append(a)
+    y.append(b)
+
+#print(x,y)
+out = 0
+for i in range(6,0,-1):
+    if x[i] + y[i] > 8:
+        out = i +1
+
+print(out)
+#print(list(range(6,-1,-1)))
+'''
+
+#P1909
+'''
+n = int(input())
+l1,l2 = [],[]
+
+
+for i in range(3):
+    a,b = map(int, input().split())
+    l1.append(a)
+    l2.append(b)
+
+import math #主要是这里取整的问题，要向上
+money = math.ceil(n/l1[0])  * l2[0]
+for i in range(1,3):
+    n1 = math.ceil(n/l1[i])
+    money1 = n1 * l2[i]
+    if money1 < money:
+        money = money1
+print(money)
+
+'''
+
+#P1055
+
+#l = input().split('-')
+#s = str(l)
+#print(l)
+#print(s)
+#b = ''.join(l)
+#print(b)
+#numL = []
+'''
+for i in l:
+    numL.append(int(i))
+for i in range()
+
+
+'''
+
+
+l = input()
+l_1 = l.split('-')
+sums =0
+l1 = l.replace('-','')
+for i in range(9):
+    sums = (i + 1) * int(l1[i]) + sums
+if  == 10:
+    rn = 'X'
+    rn = str(sums % 11)
+if rn == (l[-1]):
+    print('Right')
+else:
+    l_1[-1] = str(rn)
+    l = '-'.join(l_1)
+    print(l)
+     
