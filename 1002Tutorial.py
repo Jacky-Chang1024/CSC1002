@@ -177,7 +177,7 @@ print(l[i],l[j],l[k])
 
 # Build a function called add_money , client can use this function to put money into the
 # machine
-
+'''
 def add_money(p_money, p_balance):
     g_money_list = [5,10,20,50,100]
     if p_money in g_money_list: 
@@ -185,9 +185,9 @@ def add_money(p_money, p_balance):
     else:
         print(" The machine only supports the money with 5, 10, 20, 50 or 100 face value. ")
 
-
+'''
 # Create a goods list and a price list as global variable with the same length as below
-
+'''
 goods_list = ['apple','orange','cola','juice','banana']
 price_list = [3, 4, 5, 6, 4]
 
@@ -220,7 +220,11 @@ def buy_goods(p_balance, p_name, p_number = 1):
 print('Your balance:', buy_goods(20,'appe',3))
 print('Your balance:', buy_goods(20,'apple',3))
 
+'''
 
 # 3. Reuse the functions in Q1 and Q2, then combine and invoke them to be a simple vending
 # machine.
 
+'''
+trivial
+'''

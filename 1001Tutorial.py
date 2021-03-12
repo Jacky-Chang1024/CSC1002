@@ -199,3 +199,22 @@ for row in range(1,numOfLine+1):
 
 '''
 
+#TUT 6
+'''
+dic = {'1':'2'}
+
+s = ' 01234 '
+a = s.__lt__(1)
+a = s.isspace()
+a = s.ljust(12)
+a = s.maketrans('1','2')
+
+print(a,type(a))
+
+'''
+
+
+open():str
+
+
+
