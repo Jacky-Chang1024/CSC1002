@@ -228,3 +228,32 @@ print('Your balance:', buy_goods(20,'apple',3))
 '''
 trivial
 '''
+
+# TUT 6
+
+# class Sizhe_Xu:
+#     look = 'miscreatesd'
+#     mind = 'stupid'
+
+#     def court(self, girl):
+#         print('%s sai : \"I don\'t like you. Digusting!\"' %girl)
+
+# Sizhe_Xu.court('Lily')
+""" 
+a = [1,2,3]
+b = []
+c = a[:]
+d = a
+for i in a:
+    b.append(i)
+
+
+print(a == b)
+print(a is b)
+
+print(a == c)
+print(a is c)
+
+print(a == d)
+print(a is d)
+ """
