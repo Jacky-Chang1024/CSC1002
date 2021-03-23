@@ -214,7 +214,17 @@ print(a,type(a))
 '''
 
 
-open():str
+#open():str
 
+class Count:
+    def __init__(se , count=0):
+        self.count=count
 
+def m(c,n):
+    c = Count(5)
+    n = 3
+
+def main():
+    c = Count()
+    n
 
