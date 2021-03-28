@@ -218,20 +218,102 @@ for i in range()
 
 '''
 
-
+#P1055
+'''
 l = input()
-l_1 = l.split('-')
+s = ''.join(l.split('-'))
 sums =0
-l1 = l.replace('-','')
+
 for i in range(9):
-    sums = (i + 1) * int(l1[i]) + sums
-if  == 10:
+    sums += (i + 1) * int(s[i]) 
+
+rn = str(sums%11)
+if rn == '10':
     rn = 'X'
-    rn = str(sums % 11)
-if rn == (l[-1]):
+
+if s[9]==rn:
     print('Right')
 else:
-    l_1[-1] = str(rn)
-    l = '-'.join(l_1)
-    print(l)
-     
+    print(l[:12]+rn)
+'''
+
+
+#P1422 小玉家的电费
+'''
+s = int(input())
+if s > 400:
+    print('%.1f' % ((s - 400) * 0.5663 + 250 * 0.4663 + 150 * 0.4463))
+elif s > 150:
+    print('%.1f' % ((s - 150) * 0.4663 + 150 * 0.4463))
+else:
+    print('%.1f' % (s * 0.4463))
+'''
+
+#P1424 小鱼的航程
+'''
+x ,n = map(int,(input().split()))
+cnt=0
+for i in range(x,x+n):
+    if (i) % 7 != 6 and (i) % 7 != 0:
+        cnt+=1
+print(cnt*250)   
+'''
+
+#P1888 三角函数
+'''
+l=list(map(int,input().split()))
+l.sort()
+for i in range(2,int(l[0]**0.5+1)):
+    if l[0]%i == 0:
+        if l[2]%i == 0:
+            l[0]/=i
+            l[2]/=i
+print('%d/%d'%(l[0],l[2]))
+'''
+
+
+##找到了辗转相除法求最大公约数
+'''
+def gcd(x, y): # very fast
+   return x if y == 0 else gcd(y, x%y)
+
+print(gcd(40, 60))  # result: 20
+'''
+
+#P1002 [NOIP2002 普及组] 过河卒
+'''
+bx,by,mx,my = map(int,input().split())
+
+l=[[1 for i in range(by+1)] for j in range(bx+1)]
+def z(mx,my,l):
+    m1=[1,-1]
+    m2=[2,-2]
+    l[mx][my]=0
+    for i in range(2):
+        for j in range(2):
+            if mx+m1[i] in range(bx+1) and my+m2[j] in range(by+1):
+                l[mx+m1[i]][my+m2[j]] = 0
+            if mx+m2[i] in range(bx+1) and my+m1[j] in range(by+1):
+                l[mx+m2[i]][my+m1[j]] = 0
+    return l
+
+
+l=z(mx,my,l)
+for i in range(bx+1):
+    for j in range(by+1):
+        if l[i][j]==0 :
+            if i == 0 and j != by:
+                l[i][j+1]=l[i][j]
+            if j == 0 and i != bx:
+                l[i+1][j]=l[i][j]    
+            else:
+                
+                pass
+        elif i!=0 and j != 0:
+            l[i][j]=l[i-1][j]+l[i][j-1]
+
+print(l[bx][by])
+'''      
+
+
+
