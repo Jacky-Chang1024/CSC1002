@@ -281,39 +281,28 @@ print(gcd(40, 60))  # result: 20
 '''
 
 #P1002 [NOIP2002 普及组] 过河卒
-'''
+
 bx,by,mx,my = map(int,input().split())
 
-l=[[1 for i in range(by+1)] for j in range(bx+1)]
-def z(mx,my,l):
-    m1=[1,-1]
-    m2=[2,-2]
-    l[mx][my]=0
-    for i in range(2):
-        for j in range(2):
-            if mx+m1[i] in range(bx+1) and my+m2[j] in range(by+1):
-                l[mx+m1[i]][my+m2[j]] = 0
-            if mx+m2[i] in range(bx+1) and my+m1[j] in range(by+1):
-                l[mx+m2[i]][my+m1[j]] = 0
-    return l
+l=[[1 for i in range(by+2)] for j in range(bx+2)] #多创建1行用来防止超出index
+for i in range(bx+2):
+    l[i][by+1] = 0
+for i in range(1,by+2):
+    l[bx+1][i] = 0
+#防止都变成零 所以从1开始
 
+m1=[0,1,1,-1,-1,2,2,-2,-2]
+m2=[0,2,-2,2,-2,1,-1,1,-1]
+for i in range(9):
+    if m1[i]+mx <= bx and m1[i]+mx >= 0 and m2[i]+my <= by and m2[i]+ my>= 0 :
+        l[m1[i] + mx][m2[i] + my] = 0   
 
-l=z(mx,my,l)
 for i in range(bx+1):
     for j in range(by+1):
-        if l[i][j]==0 :
-            if i == 0 and j != by:
-                l[i][j+1]=l[i][j]
-            if j == 0 and i != bx:
-                l[i+1][j]=l[i][j]    
-            else:
-                
-                pass
-        elif i!=0 and j != 0:
+        if l[i][j]!=0 :
             l[i][j]=l[i-1][j]+l[i][j-1]
-
 print(l[bx][by])
-'''      
+
 
 
 
