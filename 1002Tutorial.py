@@ -257,3 +257,126 @@ print(a is c)
 print(a == d)
 print(a is d)
  """
+
+
+# m={'a':1,'b':2}
+# z = zip(list())
+'''
+def triple(x):
+    return x**3
+
+l = list(range(1,11))
+
+l = list(filter(lambda i: i%2==0, l))
+
+tripeld = list(map(triple, l))
+
+print(tripeld)
+    
+'''
+
+#HAmming distance
+'''
+a = 8
+b = 9
+
+def bimomial(x):
+ 
+    l=''
+    while True:
+        l+= str(x%2)
+        l=l.zfill(32)
+        x//=2
+        
+        if x == 0:
+            return l
+# print(bimomial(9))
+
+
+
+c=list(map(lambda x, y: 1 if x==y else 0, (zip(bimomial, bimomial(b)))))
+print(c)
+
+'''
+
+#TUT 10
+
+class TicTacToe():
+    def __init__(self, board=[[0 for i in range(3)] for i in range(3)]):
+        self.board = board # 0 empty, 1 circle, 2 cross
+    
+    def drawBorard(self):
+        match=['   |', ' o |',' x |']
+        for i in range(3):
+            print('\n---  ---  ---')
+            print('|',end='')    
+            for j in range(3):
+               print(match[self.board[i][j]], end='')
+        print('\n---  ---  ---')
+
+
+
+    def player_one_move(self, p_row, p_column):
+        self.board[p_row][p_column] = 2
+
+
+
+    def check_full(self):
+        for i in range(3):
+            if 0 in self.board[i]:
+                return False
+        return True
+
+
+    def check_winner(self):
+        # match=['   |', ' o |',' x |']
+        # B = self.board
+        # i=j=0
+        # Q = B[i][j]
+        # while 1:
+        #     if i = 2:   
+        #         if j = 2:
+        #             return "Draw"
+        #     if B[i][j] = Q:
+        #     i += 1
+
+        player_one = False
+        player_two = False
+        '''
+        if self.board[0][0] == self.board[1][1] == self.board[2][2]:
+            if self.board[0][0] == 1:
+                player_one = True
+            else:
+                player_two = True
+        '''
+
+        for i in range(3):
+            row_element = set([self.board[i][0]], self.board[i][1], self.board[i][2])
+            if len(row_element) == and 0 not in board[i]:
+                if board[i][1] == 1:
+                    player_one = True
+                else:
+                    player_two = True
+
+        if player_one and not player_two:
+            return "Player1 Wins"
+        # 
+
+        if not player_one and not player_two:
+            if self.check_full():
+                return "Draw"
+            else:
+                return "Continue"
+
+
+
+
+game = TicTacToe()
+game.player_one_move(1,1)
+game.drawBorard()ad
+
+
+
+
+
+

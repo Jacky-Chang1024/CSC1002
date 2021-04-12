@@ -108,7 +108,9 @@ for i in range(100):
     for j in range(100):
         if (j+1) % (i+1) == 0:
             l[j] = not l[j]
-print(l)
+for i in range(100):
+    if l[i]:
+        print(i+1)
 '''
 #Q6
 
@@ -161,14 +163,13 @@ while True:
         l[y][x] = ' '
         x += 1
 
-
     if determine(y,x):
         l[y][x] = 'Q'
         y += 1
         x = 0
     else:
         x += 1
-'''        
+''' 
 
 
 

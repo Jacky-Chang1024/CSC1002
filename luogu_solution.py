@@ -281,7 +281,7 @@ print(gcd(40, 60))  # result: 20
 '''
 
 #P1002 [NOIP2002 普及组] 过河卒
-
+'''
 bx,by,mx,my = map(int,input().split())
 
 l=[[1 for i in range(by+2)] for j in range(bx+2)] #多创建1行用来防止超出index
@@ -302,7 +302,26 @@ for i in range(bx+1):
         if l[i][j]!=0 :
             l[i][j]=l[i-1][j]+l[i][j-1]
 print(l[bx][by])
+'''
 
+
+l=[]
+for i in range(10):
+    l.append(i)
+def findNumber(l):
+    while True:
+        cnt = 0
+
+        for i in range(10):
+            l[i]=l.count(i)
+        
+        for i in range(10):
+            if l[i]==l.count(i):
+                cnt+=1
+            if cnt==10:
+                return(l)
+            
+print(findNumber(l))
 
 
 
