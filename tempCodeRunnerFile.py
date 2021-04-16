@@ -1,1 +1,1 @@
-g_intro
+g_screen = configure_screen()
