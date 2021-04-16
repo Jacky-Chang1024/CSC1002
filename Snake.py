@@ -1,7 +1,13 @@
 import turtle
 import random
 import time
-    
+
+
+#目前的问题：
+
+#吃的时候有时吃不到
+
+
 def configure_screen():
     screen = turtle.Screen()
     screen.setup(660,740)
@@ -25,7 +31,7 @@ def configure_game_status():
     motionList = ['Right', 'Up', 'Left', 'Down']
     index = int(g_snake.heading() / 90)
     motion = motionList[index]
-    if on == -1:
+    if g_on == -1:
         motion = 'Pause'
 
     
@@ -112,23 +118,29 @@ def configure_monster():
     return monster
 
 def configure_food():
-    foodList=[]
-    for i in range(9):
-        foodList.append(turtle.Turtle())
-    cnt = 1
-    foodPos = []
-    for food in foodList:
-        x, y = random_position()
-        food.ht()
-        food.pu()
-        food.setpos(x,y)
-        food.sety(food.ycor() - 10)
-        # print(cnt,x,y)
-        food.write(cnt, align="center", font=("Arial", 10, "normal"))
-        food.sety(food.ycor() + 10)
-        cnt+=1
-        foodPos.append((x,y))
-    return foodPos, foodList
+    while True:
+
+        foodList=[]
+        for i in range(9):
+            foodList.append(turtle.Turtle())
+        cnt = 1
+        foodPos = []
+        for food in foodList:
+            x, y = random_position()
+            food.ht()
+            food.pu()
+            food.setpos(x,y)
+            food.sety(food.ycor() - 10)
+            # print(cnt,x,y)
+            food.write(cnt, align="center", font=("Arial", 10, "normal"))
+            food.sety(food.ycor() + 10)
+            cnt+=1
+            foodPos.append((x,y))
+        if len(set(foodPos)) == 9 and ((0,0) not in foodPos):
+
+        #查重 
+
+            return foodPos, foodList
 
 
 def update_game_status():
@@ -148,11 +160,14 @@ def eat():
     global g_lenth
     global foodPos
     global foodPosCopy
-    
+
     if len(foodPos) == 9:
         foodPosCopy = foodPos[:]
     
     xy = g_snake.pos()
+
+    print('snake position is', xy)
+    print('food position is', foodPos)
 
     if xy in foodPos:
         g_lenth += (foodPosCopy.index(xy) + 1) 
@@ -162,6 +177,7 @@ def eat():
 
 def print_body():
     
+    print('body infor is',g_bodyInfor)
     # body.clearstamps()
     for item in g_bodyInfor:
         body.goto(item)
@@ -182,7 +198,7 @@ def generate_bodyInfor():
 
         # g_bodyInfor = []
     
-    if on == 1:
+    if g_on == 1:
         g_bodyInfor.append(g_snake.pos())
         if g_lenth >= len(g_bodyInfor):
             pass
@@ -201,22 +217,40 @@ def body_move():
     # print('body cleared')
     print_body()
 
+def barrier():
+    global g_on
+    snakeCopy = g_snake.clone()
+    snakeCopy.ht()
+    snakeCopy.fd(20)
+    x,y = snakeCopy.pos()
+    print('copy position',x,y)
+    print('body infor is', g_bodyInfor)
+    if snakeCopy.pos() in g_bodyInfor:
+        print(snakeCopy.pos(), g_bodyInfor)
+        g_on = 0
+    if x > 250 or x < -250 or y > 250 or y < -250:
+        print((x,y))
+        g_on = 0
+        
+
+
 
 def move():
     global g_bodyInfor
     global body
 
-    
+    # barrier()
     snake_move()
-    monster_move()
     body_move()
+    monster_move()
+    print('on is ' , g_on)
 
     g_screen.update()
     g_screen.ontimer(move,500)
 
 def monster_move():
     # global g_monster 
-    if on == 1 or on == 0:
+    if g_on == 1 or g_on == 0:
         x_m, y_m, = g_monster.pos()
         x,y =  g_snake.pos() - g_monster.pos()
         Abs = max(abs(x),abs(y))
@@ -232,6 +266,7 @@ def snake_move():
     # global g_screen
     # s = g_snake
     # angle=[0,180,90,270,0]
+    barrier()
     snake_forward()
     g_screen.onkey(up, "Up")  # This will call the up function if the "Left" arrow key is pressed
     g_screen.onkey(down, "Down")
@@ -242,37 +277,37 @@ def snake_move():
     # print(g_snake.pos())
 
 def snake_forward():
-    if on == 1:
+    if g_on == 1:
         g_snake.fd(20)
     
 def up():
-    global on 
-    on = 1
+    global g_on 
+    g_on = 1
     if g_snake.heading() != 90 and g_snake.heading() != 270:
         g_snake.setheading(90)
     
 def down():
-    global on 
-    on = 1
+    global g_on 
+    g_on = 1
     if g_snake.heading() != 90 and g_snake.heading() != 270:
         g_snake.setheading(270)
     
 def left():
-    global on 
-    on = 1
+    global g_on 
+    g_on = 1
     if g_snake.heading() != 0 and g_snake.heading() != 180:
         g_snake.setheading(180)
     
 def right():
-    global on 
-    on = 1
+    global g_on 
+    g_on = 1
     
     if g_snake.heading() != 0 and g_snake.heading() != 180:    
         g_snake.setheading(0)
 
 def pause():
-    global on 
-    on = - on 
+    global g_on 
+    g_on = - g_on 
 
 
 def start(x,y):
@@ -296,18 +331,11 @@ if __name__ == '__main__':
     # turtle.ontimer()
     # turtle.pu()
     # turtle.shape('square')
-    on = 0
-
-    g_lenth = 5
-
-    g_bodyInfor = []
-
-
-
-    
+    g_on = 0
+    g_lenth = 6
+    g_bodyInfor = [(0,0)]
     g_screen = configure_screen()
     g_snake = configure_snake()
-    # g_bodyInfor = [(0,0)] 
     g_monster = configure_monster()
     configure_boundary()
     g_intro = configure_intro()
