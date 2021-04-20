@@ -2,6 +2,10 @@ import turtle
 import random
 import time
 
+
+#CHUK(SZ)张嘉纬
+#CSC1002
+
 #目前的问题：
 
 # object移动速度

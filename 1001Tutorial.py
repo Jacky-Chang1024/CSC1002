@@ -215,7 +215,7 @@ print(a,type(a))
 
 
 #open():str
-
+'''
 class Count:
     def __init__(se , count=0):
         self.count=count
@@ -228,3 +228,8 @@ def main():
     c = Count()
     n
 
+'''
+#TUT 10
+#Q1
+def conv(n,base):
+    

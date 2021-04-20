@@ -7,6 +7,8 @@ import time
 #初始方向问题
 #manual refresh
 #object移动速度
+#能不能穿过身体
+
 SNAKE_SPEED = 300
 
 
@@ -156,7 +158,6 @@ def update_game_status():
             g_bodyFlag = 1 # Use this to stop body moving
             # These two stamps for enjoying sight （＾∀＾）
             g_snake.stamp()
-            g_monster.stamp()
         else:
             # Refresh the screen every 0.5s
             g_screen.update()
@@ -174,6 +175,8 @@ def lose():
     x, y = g_monster.pos() - g_snake.pos()
     # 15 is enough for this game!
     if abs(x) < 15 and abs(y) < 15:
+        g_monster.clear()
+        g_monster.stamp()
         g_monster.write('Game Over!!!',align='right',font=('Arial',15,'bold'))
         return True
     else:
@@ -182,16 +185,16 @@ def lose():
 
 
 
-def move():
+def snake_move():
     global g_bodyInfor
     global g_body
     global g_flag
 
-    snake_move()
+    head_move()
     body_move()
     # monster_move()
     update_game_status()
-    g_screen.ontimer(move,SNAKE_SPEED)
+    g_screen.ontimer(snake_move,SNAKE_SPEED)
 
 
 def monster_move():
@@ -234,7 +237,9 @@ def eat():
         g_lenth += (g_foodPosCopy.index(xy) + 1) 
         foodList[g_foodPosCopy.index(xy)].clear()
         g_foodPos.remove(xy)
-        SNAKE_SPEED += g_foodPosCopy.index(xy) * 5
+        SNAKE_SPEED += g_foodPosCopy.index(xy) * 12 #used to be 5
+
+
 
 def print_body():
     
@@ -260,7 +265,7 @@ def generate_bodyInfor():
             g_bodyInfor.pop(0)
 
 
-def snake_move():
+def head_move():
     barrier()
     snake_forward()
     g_screen.onkey(up, "Up")  
@@ -282,7 +287,7 @@ def barrier():
     # # Just in case, don’t be very precise, 240 will do.
     # # Boundary as barrier
     if x > 240 or x < -240 or y > 240 or y < -240:
-        print((x,y))
+        # print((x,y))
         # Snake stop, monster move
         g_on = 0
 
@@ -331,7 +336,7 @@ def start(x,y):
     g_intro.clear()
     g_foodPos, foodList = configure_food()
     body_writer()
-    move()
+    snake_move()
     monster_move()
     # update_game_status()
     g_screen.onscreenclick(None)

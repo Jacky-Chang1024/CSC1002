@@ -1,0 +1,64 @@
+class Derivative(object):
+    def __init__(self, polynomial):
+        self.__polynomial = polynomial
+
+    def get_symbol(self):
+        l = ['+', '-' , '*', '^', '.']
+        p = self.__polynomial
+        for i in p:
+            if i not in l and not i.isdigit():
+                self.symbol = i
+                # self.symbol = p[p.index('^')-1]
+                return self.symbol
+        return # Only constant
+
+    def standardization(self):
+        poly = self.__polynomial
+        s = self.get_symbol()
+        poly = poly.replace('-','-+')
+        items = poly.split('+')
+        for i in items:
+            if i.find(s) == -1:
+                items.remove(i)
+                break
+            if i.find('^') == -1:
+                i.replace(s,s+'^1')
+            if i.find('*') == 0:
+                i.replace(s,'1*'+s)
+        standardPoly = '+'.join(items)
+        return standardPoly
+
+        def get_de():
+            sp = standardization()
+            items = sp.split(+)
+            items.sort()
+            for i in items:
+                try:
+                    print(i[-6],end='')
+                except:
+                    pass
+                for j in range(5):
+                    print(i[-j],end='')
+                
+
+f1 = '-x'
+d1 = Derivative(f1)
+# print(d1.get_symbol())
+# print(d1.get_terms())
+# d1.print_put()
+f2 = '-x+3'
+d2 = Derivative(f2)
+# print(d2.get_element())
+# print(d2.get_terms())
+# d2.print_put()
+# Derivative('0').print_put()
+
+f3 = '2*x^4'
+
+d3 = Derivative(f3)
+# d3.print_put()
+# print(d3.get_element())
+
+f4 = '3*x^2+x^4'
+Derivative(f4).print_put()
+d1.get_de()
