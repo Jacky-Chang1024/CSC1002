@@ -34,7 +34,7 @@ Program will compare the gap of x and y direction and move the monster to the sn
 #### iii. Expand the tail
 The program will generate 9 random coordinates and set them in a list. Once they were eaten by snake, they will be deleted.
 #### iv. Contact between snake and monster
-Every time monster or snake moved, the screen will judge whether they are contact, that is, check whether the difference of their coordinates are less than 20.
+Every time monster moved, the screen will judge whether they are contact, that is, check whether the difference of their coordinates are less than 20. The cordinates of body can be got from g_bodyInfor
 ## Function Specifications
 ### Configure Part
 ```
@@ -79,7 +79,7 @@ Append and delete body information to keep body move in appropriate
 ```
 snake_move()
 ```
-Move snake, both head and tail, and update screen every unit time. Unit time is determined by SNAKE_SPEED.
+Move snake, both head and tail, and update screen every unit time. Unit time is determined by SNAKE_SPEED. If the length of body is changing, the speed will be slower.
 ```
 body_move()
 ```
@@ -87,7 +87,7 @@ If the game is on, move the body.
 ```
 eat()
 ```
-Check whether snake eat the food. The snake's speed will become slower if it eat food. The larger the number is, the slower the snake will be.
+Check whether snake eat the food. Cancel the food eaten.
 ```
 print_body()
 ```
@@ -114,6 +114,10 @@ Use length of body to determine win, the distance between snake and monster to d
 update_game_status()
 ```
 Check win or lose. Update information.
+```
+check_contact()
+```
+Check whether they contact. If so, contact will add 1.
 ## 3.Output
 ### a.
 #### i. Winner
@@ -133,4 +137,4 @@ Check win or lose. Update information.
 ## 4. Some Details
 The Usage of some global variables are stated in comments
 
-The speed of monster was random around the snake, and the snake will get slower if it ate food.
+The speed of monster was random around the snake.

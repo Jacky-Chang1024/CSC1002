@@ -16,9 +16,13 @@ g_flag = 0
 # It's not very important but confused
 g_finish = False
 
+g_contact = 0
+
+g_bodyLength = 0
+
 g_direction = [0]
 
-SNAKE_SPEED = 300
+SNAKE_SPEED_0 = 200
 
 
 def configure_screen():
@@ -33,10 +37,6 @@ def configure_game_status():
     global g_status_write
     global g_motion_write
     # Use try because at first g_foodPos was not defined
-    try:
-        contact = 9-len(g_foodPos)
-    except:
-        contact = 0
     motionList = ['Right', 'Up', 'Left', 'Down']
     index = int(g_snake.heading() / 90)
     motion = motionList[index]
@@ -48,12 +48,12 @@ def configure_game_status():
     g_status_write.ht()
     g_status_write.setpos(-210,270)
     g_status_write.clear()
-    statusInfor = 'Contact: %1d    Time:%4d     Motion:' %(contact,g_t_time)
+    statusInfor = 'Contact: %1d    Time:%4d     Motion:' %(g_contact,g_t_time)
     g_status_write.write(statusInfor, align="left", font=("Arial", 16, "bold"))
 
     g_motion_write.pu()
     g_motion_write.ht()
-    g_motion_write.setpos(130,270)
+    g_motion_write.setpos(150,270)
     g_motion_write.clear()
     g_motion_write.write(motion, align='left', font=('Arial', 16, 'bold'))
 
@@ -112,8 +112,10 @@ def configure_monster():
     monster.color('purple')
     # Random position with a fair distance from the snake
     while True:
-        x, y = random_position()
-        if abs(x) > 40 and abs(y) > 40:
+        x = random.randrange(-240,240,1)
+        y = random.randrange(-240,240,1)
+        if abs(x) > 100 and abs(y) > 100:
+
             monster.setpos(x,y)
             break
     return monster
@@ -143,7 +145,6 @@ def configure_food():
                 food.clear()    
 
 
-
 def update_game_status():
     global g_on
     global g_t_time
@@ -166,7 +167,6 @@ def update_game_status():
             g_on = -1
             g_bodyFlag = 1 # Use this to stop body moving
             # These two stamps for enjoying sight （＾∀＾）
-            g_snake.stamp()
             g_screen.update()
         else:
             # Refresh the screen every 0.5s
@@ -182,46 +182,46 @@ def win():
         return False
 
 def lose():
-    x, y = g_monster.pos() - g_snake.pos()
+    x, y =  tuple(map(round, g_monster.pos() - g_snake.pos()))
     # 15 is enough for this game!
-    if abs(x) < 15 and abs(y) < 15:
+    if abs(x) <= 20  and abs(y) <= 20:
         g_monster.clear()
-        g_monster.ht()
-        g_snake.color('purple')
         g_monster.write('Game Over!!!',align='right',font=('Arial',15,'bold'))
         return True
     else:
         return False
 
 
-
-
 def snake_move():
     global g_bodyInfor
     global g_body
     global g_flag
-
+    global g_bodyLength
+    if g_bodyLength != len(g_bodyInfor):
+        g_bodyLength = len(g_bodyInfor) 
+        SNAKE_SPEED = 350
+    else:
+        SNAKE_SPEED = SNAKE_SPEED_0
     head_move()
     body_move()
-    # monster_move()
     update_game_status()
     g_screen.ontimer(snake_move,SNAKE_SPEED)
 
-
 def monster_move():
-    MONSTER_SPEED = 570 + random.randrange(-100,100)
-    if g_on == 1 or g_on == 0:
-        x_m, y_m, = g_monster.pos()
-        x,y =  g_snake.pos() - g_monster.pos()
-        Abs = max(abs(x),abs(y))
-        if Abs == abs(x): 
-            g_monster.setx(20 * abs(x+1) / (x+1) + x_m)  
-            # Add one to prevent the dividend from being zero
-        else:
-            g_monster.sety(20 * abs(y+1) / (y+1) + y_m)
+    MONSTER_SPEED = 350 + random.randrange(-60,60)
+    # MONSTER_SPEED = 1200 + random.randrange(-100,100)
+    # if g_on == 1 or g_on == 0 : 
+    x_m, y_m, = g_monster.pos()
+    x,y =  g_snake.pos() - g_monster.pos()
+    Abs = max(abs(x),abs(y))
+    if Abs == abs(x): 
+        g_monster.setx(20 * abs(x+1) / (x+1) + x_m)  
+        # Add one to prevent the dividend from being zero
+    else:
+        g_monster.sety(20 * abs(y+1) / (y+1) + y_m)
+    check_contact()
     update_game_status()
     g_screen.ontimer(monster_move, MONSTER_SPEED)
-
 
 def body_move():
     if g_on == 1 and g_bodyFlag != 1:
@@ -234,9 +234,6 @@ def eat():
     global g_lenth # Represenet the lenth of the snake
     global g_foodPos
     global g_foodPosCopy
-    global SNAKE_SPEED
-
-    
 
     # Get a copy at beginning
     if len(g_foodPos) == 9:
@@ -248,15 +245,22 @@ def eat():
         g_lenth += (g_foodPosCopy.index(xy) + 1) 
         foodList[g_foodPosCopy.index(xy)].clear()
         g_foodPos.remove(xy)
-        SNAKE_SPEED += g_foodPosCopy.index(xy) * 5 #used to be 5
 
-
+def check_contact():
+    global g_contact
+    xm, ym = tuple(map(round, g_monster.pos()))
+    for pos in g_bodyInfor:
+        x, y = pos
+        if abs(xm - x) < 20 and abs(ym - y) < 20:
+            g_contact += 1
+            break
 
 def print_body():
     
     for item in g_bodyInfor:
         g_body.goto(item)
         g_body.stamp()
+
 
 def body_writer():
     global g_body
@@ -301,8 +305,6 @@ def barrier():
     # # Just in case, don’t be very precise, 240 will do.
     # # Boundary as barrier
     if x > 240 or x < -240 or y > 240 or y < -240:
-        # print((x,y))
-        # Snake stop, monster move
         g_on = 0
 
 def snake_forward():
@@ -316,8 +318,7 @@ def up():
     if g_snake.heading() != 90 and g_snake.heading() != 270:
         # g_snake.setheading(90)
         g_direction.append(90)
-
-    
+   
 def down():
     global g_direction
     global g_on 
@@ -325,8 +326,7 @@ def down():
     if g_snake.heading() != 90 and g_snake.heading() != 270:
         # g_snake.setheading(270)
         g_direction.append(270)
-
-    
+   
 def left():
     global g_direction
     global g_on 
@@ -345,7 +345,6 @@ def right():
     if g_snake.heading() != 0 and g_snake.heading() != 180:    
         # g_snake.setheading(0)
         g_direction.append(0)
-
 
 def pause():
     global g_on 
@@ -381,6 +380,7 @@ if __name__ == '__main__':
 
     configure_boundary()
     configure_game_status()
+
 
     g_screen.onscreenclick(start)
     turtle.update()
